@@ -3,15 +3,16 @@ package routes
 import (
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
-	"toxicboy/adapters"
+	"toxicboy/adapters/http"
+	"toxicboy/adapters/database"
 	"toxicboy/core/orders"
 )
 
 func SetupRoutes(app *fiber.App, db *gorm.DB){
 	
-	orderRepo := adapters.NewGormOrderRepository(db)
+	orderRepo := database.NewGormOrderRepository(db)
 	orderService := orders.NewOrderService(orderRepo)
-	orderHandler := adapters.NewHttpOrderHandler(orderService)
+	orderHandler := http.NewHttpOrderHandler(orderService)
 
 	app.Post("/order", orderHandler.CreateOrder)
 	app.Get("/order", orderHandler.FindAllOrders)
