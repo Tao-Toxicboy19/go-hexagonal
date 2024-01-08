@@ -8,7 +8,7 @@ import (
 	"toxicboy/core/orders"
 )
 
-func SetupRoutes(app *fiber.App, db *gorm.DB){
+func SetupOrderRoutes(app *fiber.App, db *gorm.DB){
 	
 	orderRepo := database.NewGormOrderRepository(db)
 	orderService := orders.NewOrderService(orderRepo)
